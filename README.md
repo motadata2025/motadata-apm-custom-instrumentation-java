@@ -46,7 +46,7 @@ Add the following dependency to your `pom.xml`:
 ```xml
 <dependency>
     <groupId>com.motadata.apm</groupId>
-    <artifactId>motadata-custom-instrumentation</artifactId>
+    <artifactId>motadata-apm-custom-instrumentation-java</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -95,7 +95,7 @@ repositories {
 Add the following to your `build.gradle`:
 
 ```gradle
-implementation 'com.motadata.apm:motadata-custom-instrumentation:1.0.0'
+implementation 'com.motadata.apm:motadata-apm-custom-instrumentation-java:1.0.0'
 ```
 
 #### Step 3: Configure GitHub Authentication
@@ -117,9 +117,9 @@ If you don't want to use GitHub Packages, you can install the JAR directly:
 
 ```bash
 mvn install:install-file \
-  -Dfile=motadata-custom-instrumentation-1.0.0-fat.jar \
+  -Dfile=motadata-apm-custom-instrumentation-java-1.0.0-fat.jar \
   -DgroupId=com.motadata.apm \
-  -DartifactId=motadata-custom-instrumentation \
+  -DartifactId=motadata-apm-custom-instrumentation-java \
   -Dversion=1.0.0 \
   -Dpackaging=jar
 ```
@@ -129,7 +129,7 @@ Then add the dependency normally (no repository configuration needed):
 ```xml
 <dependency>
     <groupId>com.motadata.apm</groupId>
-    <artifactId>motadata-custom-instrumentation</artifactId>
+    <artifactId>motadata-apm-custom-instrumentation-java</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -139,13 +139,19 @@ Then add the dependency normally (no repository configuration needed):
 ### Basic Examples
 
 ```java
-import com.motadata.apm.MotadataCustomInstrumentation;
+
 
 // Set scalar attributes
-MotadataCustomInstrumentation.set("user.id", 12345L);
-MotadataCustomInstrumentation.set("user.name", "John Doe");
-MotadataCustomInstrumentation.set("user.active", true);
-MotadataCustomInstrumentation.set("response.time", 123.45);
+MotadataCustomInstrumentation.set("user.id",12345L);
+MotadataCustomInstrumentation.
+
+set("user.name","John Doe");
+MotadataCustomInstrumentation.
+
+set("user.active",true);
+MotadataCustomInstrumentation.
+
+set("response.time",123.45);
 
 // All keys are automatically prefixed with "apm."
 // The above will create: apm.user.id, apm.user.name, etc.

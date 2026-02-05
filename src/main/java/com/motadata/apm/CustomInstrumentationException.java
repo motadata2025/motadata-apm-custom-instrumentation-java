@@ -30,15 +30,15 @@ package com.motadata.apm;
 /**
  * Custom exceptions for the Motadata Custom Instrumentation utility.
  * <p>
- * This class contains nested exception classes used by {@link MotadataCustomInstrumentation}
+ * This class contains nested exception classes used by {@link CustomInstrumentation}
  * to provide descriptive error messages for various failure scenarios.
  */
-public class MotadataCustomInstrumentationException
+public class CustomInstrumentationException
 {
 
-    private MotadataCustomInstrumentationException()
+    private CustomInstrumentationException()
     {
-        throw new AssertionError(MotadataCustomInstrumentationException.class.getSimpleName() + " is a container class and should not be instantiated");
+        throw new AssertionError(CustomInstrumentationException.class.getSimpleName() + " is a container class and should not be instantiated");
     }
 
     /**

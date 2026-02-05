@@ -33,7 +33,7 @@ import io.opentelemetry.api.trace.Span;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.motadata.apm.MotadataCustomInstrumentationException.*;
+import com.motadata.apm.CustomInstrumentationException.*;
 
 /**
  * Utility class for setting custom instrumentation attributes on OpenTelemetry spans.
@@ -51,14 +51,14 @@ import com.motadata.apm.MotadataCustomInstrumentationException.*;
  *
  * @since 1.0.0
  */
-public final class MotadataCustomInstrumentation
+public final class CustomInstrumentation
 {
 
     private static final String DEFAULT_PREFIX = "apm.";
 
-    private MotadataCustomInstrumentation()
+    private CustomInstrumentation()
     {
-        throw new AssertionError(MotadataCustomInstrumentation.class.getSimpleName() + " is a utility class and should not be instantiated");
+        throw new AssertionError(CustomInstrumentation.class.getSimpleName() + " is a utility class and should not be instantiated");
     }
 
     /**

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.motadata.apm</groupId>
-    <artifactId>motadata-custom-instrumentation</artifactId>
+    <artifactId>motadata-apm-custom-instrumentation-java</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Motadata Custom Instrumentation</name>
+    <name>Motadata APM Custom Instrumentation Java</name>
     <description>
         Lightweight OpenTelemetry utility for adding safe, prefixed span attributes.
     </description>
