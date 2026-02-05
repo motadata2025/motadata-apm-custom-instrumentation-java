@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.motadata.apm</groupId>
-    <artifactId>motadata-apm-custom-instrumentation-java</artifactId>
+    <artifactId>custom-instrumentation-java</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
