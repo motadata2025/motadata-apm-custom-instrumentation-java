@@ -109,49 +109,16 @@ gpr.key=YOUR_GITHUB_PERSONAL_ACCESS_TOKEN
 
 **Note:** You need a GitHub Personal Access Token with `read:packages` scope.
 
-### Alternative: Direct JAR Installation
-
-If you don't want to use GitHub Packages, you can install the JAR directly:
-
-#### Maven Local Installation
-
-```bash
-mvn install:install-file \
-  -Dfile=custom-instrumentation-java-1.0.0-fat.jar \
-  -DgroupId=com.motadata.apm \
-  -DartifactId=custom-instrumentation-java \
-  -Dversion=1.0.0 \
-  -Dpackaging=jar
-```
-
-Then add the dependency normally (no repository configuration needed):
-
-```xml
-<dependency>
-    <groupId>com.motadata.apm</groupId>
-    <artifactId>custom-instrumentation-java</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
-
 ## Usage
 
 ### Basic Examples
 
 ```java
-
-
 // Set scalar attributes
-MotadataCustomInstrumentation.set("user.id",12345L);
-MotadataCustomInstrumentation.
-
-set("user.name","John Doe");
-MotadataCustomInstrumentation.
-
-set("user.active",true);
-MotadataCustomInstrumentation.
-
-set("response.time",123.45);
+CustomInstrumentation.set("user.id", userId);
+CustomInstrumentation.set("user.name", userName);
+CustomInstrumentation.set("user.active", aciveFlag);
+CustomInstrumentation.set("response.time", responseTime);
 
 // All keys are automatically prefixed with "apm."
 // The above will create: apm.user.id, apm.user.name, etc.
@@ -163,26 +130,11 @@ set("response.time",123.45);
 import java.util.List;
 
 // Set list attributes
-MotadataCustomInstrumentation.setStringList("tags", List.of("api", "production", "critical"));
-MotadataCustomInstrumentation.setLongList("user.ids", List.of(1L, 2L, 3L));
-MotadataCustomInstrumentation.setBooleanList("flags", List.of(true, false, true));
-MotadataCustomInstrumentation.setDoubleList("metrics", List.of(1.5, 2.5, 3.5));
-MotadataCustomInstrumentation.setIntegerList("counts", List.of(10, 20, 30));
-```
-
-### Advanced Usage
-
-```java
-// Keys are case-insensitive and converted to lowercase
-MotadataCustomInstrumentation.set("User.Name", "Jane");  // becomes apm.user.name
-
-// Prefix is automatically added if not present
-MotadataCustomInstrumentation.set("custom.key", "value");      // becomes apm.custom.key
-MotadataCustomInstrumentation.set("apm.custom.key", "value");  // stays apm.custom.key
-
-// Null values in lists are automatically filtered
-List<String> tags = Arrays.asList("tag1", null, "tag2");
-MotadataCustomInstrumentation.setStringList("tags", tags);  // Only "tag1" and "tag2" are set
+CustomInstrumentation.setLongList("user.ids", userIdList);
+CustomInstrumentation.setBooleanList("flags", Arrays.asList(true, false, true));
+CustomInstrumentation.setDoubleList("metrics", Arrays.asList(1.5, 2.5, 3.5));
+CustomInstrumentation.setIntegerList("counts", List.of(10, 20, 30));
+CustomInstrumentation.setStringList("tags", List.of("api", null, null, "production", "critical")); // Null values in lists are automatically filtered
 ```
 
 ## Exception Handling
@@ -190,24 +142,41 @@ MotadataCustomInstrumentation.setStringList("tags", tags);  // Only "tag1" and "
 The library throws descriptive exceptions for invalid inputs:
 
 ```java
+// Example 1: Scalar attribute
 try {
-    MotadataCustomInstrumentation.set(null, "value");
+    CustomInstrumentation.set(null, "value");
 } catch (InvalidAttributeKeyException e) {
     // Handle: "Attribute key cannot be null"
-}
-
-try {
-    MotadataCustomInstrumentation.set("key", (String) null);
 } catch (InvalidAttributeValueException e) {
     // Handle: "String value cannot be null for key: apm.key"
+} catch (SpanAttributeException e) {
+    // Handle: "No active span available in current context"
 }
 
+// Example 2: Scalar attribute
 try {
-    MotadataCustomInstrumentation.set("key", Double.NaN);
+    CustomInstrumentation.set("key", Double.NaN);
+} catch (InvalidAttributeKeyException e) {
+    // Handle: "Attribute key cannot be null"
 } catch (InvalidAttributeValueException e) {
     // Handle: "Invalid Double value for key: apm.key"
+} catch (SpanAttributeException e) {
+    // Handle: "Failed to set attribute on span"
+}
+
+// Example 3: List attribute
+try {
+    CustomInstrumentation.setStringList("tags", Arrays.asList(null, null));
+} catch (InvalidAttributeKeyException e) {
+    // Handle: "Attribute key cannot be null"
+} catch (InvalidAttributeValueException e) {
+    // Handle: "String list contains only null values for key: apm.tags"
+} catch (SpanAttributeException e) {
+    // Handle: "Failed to retrieve current span"
 }
 ```
+
+**Note:** You can handle these exceptions as per your existing logging approach (e.g., using SLF4J, Log4j, or any other logging framework).
 
 ## API Reference
 
