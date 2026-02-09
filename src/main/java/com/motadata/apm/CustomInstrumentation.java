@@ -32,6 +32,7 @@ import io.opentelemetry.api.trace.Span;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.motadata.apm.CustomInstrumentationException.*;
 
@@ -55,6 +56,8 @@ public final class CustomInstrumentation
 {
 
     private static final String DEFAULT_PREFIX = "apm.";
+
+    private static final Pattern KEY_VALIDATION_PATTERN = Pattern.compile("[a-zA-Z0-9.]+");
 
     private CustomInstrumentation()
     {
@@ -89,7 +92,7 @@ public final class CustomInstrumentation
             throw new InvalidAttributeKeyException("Attribute key cannot be empty or whitespace only");
         }
 
-        if (!key.matches("[a-zA-Z0-9.]+"))
+        if (!KEY_VALIDATION_PATTERN.matcher(key).matches())
         {
             throw new InvalidAttributeKeyException("Attribute key contains invalid characters. Only alphabets, numbers, and dots are allowed: '" + key + "'");
         }
