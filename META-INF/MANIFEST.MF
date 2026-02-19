@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven 3.8.7
+Built-By: Motadata
+Build-Jdk: 21.0.9
+Implementation-Title: Motadata Custom Instrumentation
+Implementation-Vendor: Motadata
+Implementation-Version: 1.0.0
+
