@@ -36,8 +36,7 @@ Motadata APM Custom Instrumentation helps you attach business context to traces 
 
 - Java 8+
 - Motadata APM agent (auto-instrumented)
-- Maven 3.6+ or Gradle 6.0+
-- Motadata APM agent (auto-instrumented)
+
 ---
 
 ## Installation
