@@ -1,10 +1,9 @@
 # Motadata APM Custom Instrumentation for Java
 
 [![Java Version](https://img.shields.io/badge/Java-8%2B-blue.svg)](https://www.oracle.com/java/)
-[![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-Compatible-brightgreen.svg)](https://opentelemetry.io/)
 [![License](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 
-Lightweight utilities for adding validated, namespaced custom attributes to OpenTelemetry spans in Java. Designed to keep instrumentation safe, consistent, and easy to adopt.
+Lightweight utilities for adding validated, namespaced custom attributes to Motadata Instrumentation spans in Java. Designed to keep instrumentation safe, consistent, and easy to adopt.
 
 ---
 
@@ -28,14 +27,14 @@ Lightweight utilities for adding validated, namespaced custom attributes to Open
 
 Motadata APM Custom Instrumentation helps you attach business context to traces without risking invalid attributes or inconsistent naming. Keys are automatically namespaced, inputs are validated, and the API is thread-safe across JVMs.
 
-> **Prerequisite:** Instrument your app first with **[Motadata Auto Instrumentation](https://docs.motadata.com/motadata-aiops-docs/apm/apm-in-motadata/)** so the OpenTelemetry context is available.
+> **Prerequisite:** Instrument your app first with **[Motadata Auto Instrumentation](https://docs.motadata.com/motadata-aiops-docs/apm/apm-in-motadata/)** so the span context is available.
 
 ---
 
 ## Requirements
 
 - Java 8+
-- Motadata APM agent (auto-instrumented)
+- Motadata Agent (8.1.0+)
 
 ---
 
@@ -162,7 +161,8 @@ Keys are automatically prefixed with `apm.` when missing, but prefer providing t
 - Keys auto-prefix to `apm.` when absent, are lowercased, and are trimmed before validation.
 - Keys allow only alphanumeric and dots; whitespace/other symbols are rejected.
 - Nulls are removed from lists; lists must retain at least one non-null value.
-- Double inputs/drop NaN or Infinity; integer inputs are stored as `long` for OTLP compatibility.
+- Double inputs/drop NaN or Infinity; integer inputs are stored as `long` for compatibility.
+- Empty string values are ignored and not added to the trace.
 - Thread-safe for concurrent use.
 - Throws `Exception` for invalid input or when no active span is present.
 
